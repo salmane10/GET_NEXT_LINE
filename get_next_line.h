@@ -6,7 +6,7 @@
 /*   By: slouham <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 11:59:13 by slouham           #+#    #+#             */
-/*   Updated: 2024/02/09 19:11:41 by slouham          ###   ########.fr       */
+/*   Updated: 2024/02/09 21:10:34 by slouham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include <stdio.h>
 
 char	*get_next_line(int fd);
-char	*ft_strdup(char *s);
+char	*ft_free(char *buffer);
+char	*ft_strjoin(const char *s1,const char *s2);
+char	*ft_strchr(const char *s, int c);
+size_t	ft_strlen(const char *s);
 
 #endif
