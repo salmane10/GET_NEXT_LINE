@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slouham <slouham@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 11:58:53 by slouham           #+#    #+#             */
-/*   Updated: 2024/02/16 16:50:29 by slouham          ###   ########.fr       */
+/*   Created: 2024/02/16 11:13:41 by slouham           #+#    #+#             */
+/*   Updated: 2024/02/16 16:49:52 by slouham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
-char	*get_read(int fd, char *string)
+char	*get_read(int fd, char	*string)
 {
 	char	*chunk;
 	ssize_t	rbts;
@@ -36,9 +36,9 @@ char	*get_read(int fd, char *string)
 	return (string);
 }
 
-char	*get_line(char	*buffer)
+char	*get_line(char *buffer)
 {
-	char	*line_;
+	char	*line2;
 	size_t	n;
 
 	n = 0;
@@ -46,22 +46,22 @@ char	*get_line(char	*buffer)
 		return (NULL);
 	while (buffer[n] && buffer[n] != '\n')
 		n++;
-	line_ = (char *)malloc((n + 2) * sizeof(char));
-	if (!line_)
+	line2 = (char *)malloc((n + 2) * sizeof(char));
+	if (!line2)
 		return (NULL);
 	n = 0;
 	while (buffer[n] && buffer[n] != '\n')
 	{
-		line_[n] = buffer[n];
+		line2[n] = buffer[n];
 		n++;
 	}
 	if (buffer[n] == '\n')
-		line_[n++] = '\n';
-	line_[n] = 0;
-	return (line_);
+		line2[n++] = '\n';
+	line2[n] = 0;
+	return (line2);
 }
 
-char	*get_rest(char	*buffer)
+char	*get_rest(char *buffer)
 {
 	char	*new_part;
 	size_t	size;
@@ -89,27 +89,15 @@ char	*get_rest(char	*buffer)
 
 char	*get_next_line(int fd)
 {
+	static char		*rest[__FD_SETSIZE];
 	char			*line;
-	static char		*rest;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > __FD_SETSIZE)
 		return (NULL);
-	rest = get_read(fd, rest);
-	if (!rest)
+	rest[fd] = get_read(fd, rest[fd]);
+	if (!rest[fd])
 		return (NULL);
-	line = get_line(rest);
-	rest = get_rest(rest);
+	line = get_line(rest[fd]);
+	rest[fd] = get_rest(rest[fd]);
 	return (line);
 }
-
-// int	main(void)
-// {
-// 	int fd = open("test", O_RDWR);
-// 	char	*line = get_next_line(fd);
-// 	while (line)
-// 	{		
-// 		printf("%s", line);
-// 		line = get_next_line(fd);
-// 	}
-// 	close(fd);
-// }

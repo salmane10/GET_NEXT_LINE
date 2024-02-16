@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slouham <slouham@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 11:59:31 by slouham           #+#    #+#             */
-/*   Updated: 2024/02/16 16:39:24 by slouham          ###   ########.fr       */
+/*   Created: 2024/02/16 11:25:32 by slouham           #+#    #+#             */
+/*   Updated: 2024/02/16 16:46:26 by slouham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(char *str)
 {
@@ -46,7 +46,7 @@ char	*ft_strjoin(char *chunk1, char *chunk2)
 
 	if (!chunk1)
 	{
-		chunk1 = (char *)malloc(1 * sizeof(char));
+		chunk1 = (char *)malloc(1 * sizeof (char));
 		*chunk1 = '\0';
 	}
 	if (!chunk1 || !chunk2)
